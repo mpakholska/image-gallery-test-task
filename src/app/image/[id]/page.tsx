@@ -62,45 +62,58 @@ const ImageDetail = () => {
     if (!currentImage) return <p className="text-center">Loading...</p>;
 
     return (
-        <div className="container mx-auto p-4 relative">
-            <h1 className="text-3xl font-bold text-center mb-4">Image Details</h1>
-            <Link href="/" className="text-blue-500">← Back to gallery</Link>
-            <div className="mt-6 flex flex-col items-center">
-                <div className="relative w-full max-w-3xl">
-                    <Swiper
-                        autoHeight
-                        spaceBetween={10}
-                        slidesPerView={1}
-                        navigation
-                        modules={[Navigation, Pagination]}
-                        pagination
-                        loop
-                        className="w-full"
-                        initialSlide={images.findIndex((img) => img.id === id)}
-                        onSlideChange={handleSlideChange}
-                    >
-                        {images.map((img) => (
-                            <SwiperSlide key={img.id} className="!flex justify-center items-center">
-                                <img
-                                    src={img.urls.regular}
-                                    alt={img.alt_description}
-                                    className="rounded-lg shadow-lg max-w-full max-h-[500px] object-contain"
-                                />
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
+        <div className="flex flex-col gap-4 p-4 relative">
+            <h1 
+                className="text-3xl font-bold text-left"
+            >Image Details</h1>
+            <Link 
+                href="/" 
+                className="text-blue-500"
+            >← Back to gallery</Link>
+            <div className="flex items-center justify-center">
+                <div className="mt-6 flex flex-col gap-4 items-center w-full max-w-[600px]">
+                    <div className="relative w-full max-w-3xl flex">
+                        <Swiper
+                            spaceBetween={10}
+                            slidesPerView={1}
+                            navigation
+                            modules={[Navigation, Pagination]}
+                            pagination
+                            loop
+                            className="w-full overflow-hidden"
+                            initialSlide={images.findIndex((img) => img.id === id)}
+                            onSlideChange={handleSlideChange}
+                        >
+                            {images.map((img) => (
+                                <SwiperSlide 
+                                    key={img.id} 
+                                    className="!flex justify-center items-center"
+                                >
+                                    <img
+                                        src={img.urls.regular}
+                                        alt={img.alt_description}
+                                        className="rounded-lg shadow-lg max-w-full max-h-[500px] object-contain"
+                                    />
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
+                    </div>
+                    <div className="flex w-full justify-between items-center">
+                        <p className="text-left text-lg font-semibold">{currentImage.description || currentImage.alt_description || "No description available"}</p>
+                    </div>
+                    <div className="flex w-full justify-between items-center gap-4">
+                        <p className="text-left text-gray-500">By {currentImage.user.name}</p>
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={handleLikeToggle}
+                                className={`px-4 py-2 rounded-md text-white ${currentImage.liked_by_user ? "bg-red-500" : "bg-gray-500"}`}
+                            >
+                                {currentImage.liked_by_user ? "Unlike" : "Like"}
+                            </button>
+                            <p className="text-gray-500">{currentImage.likes} likes</p>
+                        </div>
+                    </div>
                 </div>
-                <div className="flex items-center mt-4">
-                    <button
-                        onClick={handleLikeToggle}
-                        className={`px-4 py-2 rounded-md text-white ${currentImage.liked_by_user ? "bg-red-500" : "bg-gray-500"}`}
-                    >
-                        {currentImage.liked_by_user ? "Unlike" : "Like"}
-                    </button>
-                </div>
-                <p className="text-lg mt-2 font-semibold">{currentImage.description || currentImage.alt_description || "No description available"}</p>
-                <p className="text-gray-500">By {currentImage.user.name}</p>
-                <p className="text-gray-500">{currentImage.likes} likes</p>
             </div>
         </div>
     );

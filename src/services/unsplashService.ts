@@ -40,7 +40,7 @@ export const fetchLikedPhotos = async (): Promise<Photo[]> => {
 
     const response = await fetch(`https://api.unsplash.com/users/${username}/likes`, {
         headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Client-ID ${UNSPLASH_ACCESS_KEY}`,
         },
     });
 

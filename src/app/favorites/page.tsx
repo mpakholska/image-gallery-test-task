@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const Favorites = () => {
     const [likedPhotos, setLikedPhotos] = useState<Photo[]>([]);
-    const accessToken = localStorage.getItem("unsplash_access_token");
+    const accessToken = localStorage.getItem("unsplash_token");
 
     useEffect(() => {
         fetchLikedPhotos().then(setLikedPhotos).catch(console.error);
@@ -15,14 +15,13 @@ const Favorites = () => {
     const handleUnlike = async (photoId: string) => {
         if (!accessToken) return;
 
-
         await unlikePhoto(photoId);
         setLikedPhotos((prev) => prev.filter((photo) => photo.id !== photoId));
     };
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-3xl font-bold text-center mb-4">Liked Photos</h1>
+        <div className="flex flex-col gap-4 mx-auto p-4">
+            <h1 className="text-3xl font-bold text-left">Liked Photos</h1>
             <Link href="/" className="text-blue-500">← Back to gallery</Link>
             {likedPhotos.length === 0 ? (
                 <p className="text-center">No liked photos yet.</p>
