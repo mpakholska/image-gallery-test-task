@@ -26,7 +26,7 @@ https://unsplash.com/
 7. Run `npm install` to install the dependencies
 
 
-8. Run `npm run dev` to launch the application
+8. Run `npm run dev ` to launch the application
 
 
 9. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
